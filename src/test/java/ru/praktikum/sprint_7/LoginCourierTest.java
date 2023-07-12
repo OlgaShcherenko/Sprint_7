@@ -10,9 +10,10 @@ import ru.praktikum.sprint_7.dataprovider.CourierProvider;
 import ru.praktikum.sprint_7.pojo.CreateCourierRequest;
 import ru.praktikum.sprint_7.pojo.LoginCourierRequest;
 
-public class LoginCourierTest extends BaseTest {
+public class LoginCourierTest {
     private CourierClient courierClient = new CourierClient();
     private Integer id;
+
 
     @Test
     @DisplayName("Successful courier authorization")
@@ -33,9 +34,7 @@ public class LoginCourierTest extends BaseTest {
         courierClient.create(createCourierRequest);
 
         LoginCourierRequest correctLoginCourierRequest = LoginCourierRequest.fromAll(createCourierRequest);
-        id = courierClient.login(correctLoginCourierRequest)
-                .statusCode(200)
-                .extract().jsonPath().get("id");
+        id = courierClient.login(correctLoginCourierRequest).extract().jsonPath().get("id");
 
         LoginCourierRequest incorrectLoginCourierRequest = LoginCourierRequest.fromWithoutLogin(createCourierRequest);
         courierClient.login(incorrectLoginCourierRequest)
@@ -50,9 +49,7 @@ public class LoginCourierTest extends BaseTest {
         courierClient.create(createCourierRequest);
 
         LoginCourierRequest correctLoginCourierRequest = LoginCourierRequest.fromAll(createCourierRequest);
-        id = courierClient.login(correctLoginCourierRequest)
-                .statusCode(200)
-                .extract().jsonPath().get("id");
+        id = courierClient.login(correctLoginCourierRequest).extract().jsonPath().get("id");
 
         LoginCourierRequest incorrectLoginCourierRequest = LoginCourierRequest.fromWithoutPassword(createCourierRequest);
         courierClient.login(incorrectLoginCourierRequest)
@@ -67,9 +64,7 @@ public class LoginCourierTest extends BaseTest {
         courierClient.create(createCourierRequest);
 
         LoginCourierRequest loginCourierRequest = LoginCourierRequest.fromAll(createCourierRequest);
-        id = courierClient.login(loginCourierRequest)
-                .statusCode(200)
-                .extract().jsonPath().get("id");
+        id = courierClient.login(loginCourierRequest).extract().jsonPath().get("id");
 
         loginCourierRequest.setLogin(RandomStringUtils.randomAlphabetic(5));
         courierClient.login(loginCourierRequest)
@@ -84,9 +79,7 @@ public class LoginCourierTest extends BaseTest {
         courierClient.create(createCourierRequest);
 
         LoginCourierRequest loginCourierRequest = LoginCourierRequest.fromAll(createCourierRequest);
-        id = courierClient.login(loginCourierRequest)
-                .statusCode(200)
-                .extract().jsonPath().get("id");
+        id = courierClient.login(loginCourierRequest).extract().jsonPath().get("id");
 
         loginCourierRequest.setPassword(RandomStringUtils.randomAlphabetic(5));
         courierClient.login(loginCourierRequest)

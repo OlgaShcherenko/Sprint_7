@@ -11,7 +11,7 @@ import ru.praktikum.sprint_7.dataprovider.OrderProvider;
 import ru.praktikum.sprint_7.pojo.CreateOrderRequest;
 
 @RunWith(Parameterized.class)
-public class CreateOrderTest extends BaseTest {
+public class CreateOrderTest {
     private CreateOrderRequest createOrderRequest;
     private OrderClient orderClient;
     Integer track;

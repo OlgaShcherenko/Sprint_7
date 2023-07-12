@@ -5,7 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import ru.praktikum.sprint_7.clients.OrderClient;
 
-public class GetOrderListTest extends BaseTest {
+public class GetOrderListTest {
     private OrderClient orderClient = new OrderClient();
 
     @Test

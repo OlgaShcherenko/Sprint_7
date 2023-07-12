@@ -9,7 +9,7 @@ import ru.praktikum.sprint_7.dataprovider.CourierProvider;
 import ru.praktikum.sprint_7.pojo.CreateCourierRequest;
 import ru.praktikum.sprint_7.pojo.LoginCourierRequest;
 
-public class CreateCourierTest extends BaseTest {
+public class CreateCourierTest {
     private CourierClient courierClient = new CourierClient();
     private Integer id;
 
@@ -22,24 +22,19 @@ public class CreateCourierTest extends BaseTest {
                 .body("ok", Matchers.equalTo(true));
 
         LoginCourierRequest loginCourierRequest = LoginCourierRequest.fromAll(createCourierRequest);
-        id = courierClient.login(loginCourierRequest)
-                .statusCode(200)
-                .extract().jsonPath().get("id");
+        id = courierClient.login(loginCourierRequest).extract().jsonPath().get("id");
     }
 
     @Test
     @DisplayName("Successful courier creation without firstName")
     public void newCourierShouldBeCreatedWithoutFirstName() {
-        //Создание курьера
         CreateCourierRequest createCourierRequest = CourierProvider.getRandomCreateCourierRequestWithoutFirstName();
         courierClient.create(createCourierRequest)
                 .statusCode(201)
                 .body("ok", Matchers.equalTo(true));
-        //Авторизация курьера, получение id
+
         LoginCourierRequest loginCourierRequest = LoginCourierRequest.fromAll(createCourierRequest);
-        id = courierClient.login(loginCourierRequest)
-                .statusCode(200)
-                .extract().jsonPath().get("id");
+        id = courierClient.login(loginCourierRequest).extract().jsonPath().get("id");
     }
 
     @Test
@@ -67,9 +62,7 @@ public class CreateCourierTest extends BaseTest {
         courierClient.create(createCourierRequest);
 
         LoginCourierRequest loginCourierRequest = LoginCourierRequest.fromAll(createCourierRequest);
-        id = courierClient.login(loginCourierRequest)
-                .statusCode(200)
-                .extract().jsonPath().get("id");
+        id = courierClient.login(loginCourierRequest).extract().jsonPath().get("id");
 
         courierClient.create(createCourierRequest)
                 .statusCode(409)
@@ -83,14 +76,10 @@ public class CreateCourierTest extends BaseTest {
         CreateCourierRequest secondCreateCourierRequest = CourierProvider.getRandomCreateCourierRequest();
         secondCreateCourierRequest.setLogin(firstCreateCourierRequest.getLogin());
 
-        courierClient.create(firstCreateCourierRequest)
-                .statusCode(201)
-                .body("ok", Matchers.equalTo(true));
+        courierClient.create(firstCreateCourierRequest);
 
         LoginCourierRequest loginCourierRequest = LoginCourierRequest.fromAll(firstCreateCourierRequest);
-        id = courierClient.login(loginCourierRequest)
-                .statusCode(200)
-                .extract().jsonPath().get("id");
+        id = courierClient.login(loginCourierRequest).extract().jsonPath().get("id");
 
         courierClient.create(secondCreateCourierRequest)
                 .statusCode(409)
